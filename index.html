@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SiteForge AI | Premium AI Website Builder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --secondary: #0f172a;
+            --accent: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --bg-main: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --sidebar-width: 280px;
+            --header-height: 70px;
+            --radius-sm: 6px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .dark-mode {
+            --bg-main: #020617;
+            --bg-card: #0f172a;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: #1e293b;
+            --shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            overflow-x: hidden;
+            transition: background-color 0.3s ease;
+        }
+
+        h1, h2, h3, h4, .font-heading {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 700;
+        }
+
+        /* Layout Utilities */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .flex { display: flex; }
+        .items-center { align-items: center; }
+        .justify-between { justify-content: space-between; }
+        .grid { display: grid; }
+        .gap-4 { gap: 1rem; }
+        .gap-8 { gap: 2rem; }
+        .hidden { display: none !important; }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            text-decoration: none;
+            font-size: 0.95rem;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 6px -1px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-main);
+        }
+
+        .btn-outline:hover {
+            background: var(--border);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--text-muted);
+        }
+
+        .btn-ghost:hover {
+            color: var(--text-main);
+            background: rgba(0,0,0,0.05);
+        }
+
+        /* Navigation */
+        nav {
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .dark-mode nav {
+            background: rgba(2, 6, 23, 0.8);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--primary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        /* Views */
+        .view {
+            display: none;
+            min-height: 100vh;
+            padding-top: var(--header-height);
+        }
+
+        .view.active {
+            display: block;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Landing Page Sections */
+        .hero {
+            padding: 120px 0 80px;
+            text-align: center;
+            background: radial-gradient(circle at top center, rgba(99, 102, 241, 0.08) 0%, transparent 70%);
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -0.02em;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        .prompt-box {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            padding: 12px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+            display: flex;
+            gap: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .prompt-box input {
+            flex: 1;
+            border: none;
+            padding: 12px 20px;
+            font-size: 1.1rem;
+            outline: none;
+            background: transparent;
+            color: var(--text-main);
+        }
+
+        /* Dashboard */
+        .dashboard-layout {
+            display: flex;
+            height: calc(100vh - var(--header-height));
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            border-right: 1px solid var(--border);
+            padding: 24px;
+            background: var(--bg-card);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .sidebar-link {
+            padding: 12px 16px;
+            border-radius: var(--radius-md);
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: var(--transition);
+        }
+
+        .sidebar-link:hover, .sidebar-link.active {
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--primary);
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 32px;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow);
+        }
+
+        .project-thumb {
+            height: 180px;
+            background: #e2e8f0;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+        }
+
+        .project-info {
+            padding: 20px;
+        }
+
+        /* Editor UI */
+        .editor-container {
+            display: grid;
+            grid-template-columns: 320px 1fr 320px;
+            height: 100vh;
+            background: #111827;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 2000;
+        }
+
+        .editor-sidebar {
+            background: #1f2937;
+            border-right: 1px solid #374151;
+            display: flex;
+            flex-direction: column;
+            color: white;
+        }
+
+        .editor-canvas-wrapper {
+            background: #111827;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-y: auto;
+        }
+
+        .canvas-toolbar {
+            background: #1f2937;
+            padding: 8px 16px;
+            border-radius: 30px;
+            display: flex;
+            gap: 16px;
+            margin-bottom: 24px;
+            border: 1px solid #374151;
+        }
+
+        .canvas-frame {
+            width: 100%;
+            max-width: 1200px;
+            min-height: 800px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            transition: width 0.4s ease;
+        }
+
+        .canvas-frame.mobile { width: 375px; }
+        .canvas-frame.tablet { width: 768px; }
+
+        .editor-right-panel {
+            background: #1f2937;
+            border-left: 1px solid #374151;
+            color: white;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .prop-group {
+            margin-bottom: 24px;
+        }
+
+        .prop-label {
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #9ca3af;
+            margin-bottom: 8px;
+        }
+
+        .prop-input {
+            width: 100%;
+            background: #374151;
+            border: 1px solid #4b5563;
+            padding: 10px;
+            border-radius: 6px;
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        /* AI Chat Assistant Overlay */
+        .ai-assistant-bubble {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.5);
+            z-index: 3000;
+        }
+
+        .ai-chat-window {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 350px;
+            height: 500px;
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            display: none;
+            flex-direction: column;
+            z-index: 3000;
+            overflow: hidden;
+        }
+
+        .ai-chat-window.open { display: flex; }
+
+        .chat-header {
+            padding: 16px;
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 16px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .message {
+            padding: 10px 14px;
+            border-radius: 14px;
+            max-width: 80%;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .message.ai {
+            background: #f1f5f9;
+            align-self: flex-start;
+            color: #1e293b;
+        }
+
+        .message.user {
+            background: var(--primary);
+            color: white;
+            align-self: flex-end;
+        }
+
+        /* Section Rendering Classes */
+        .rendered-section {
+            padding: 80px 24px;
+            position: relative;
+        }
+
+        .rendered-section:hover::after {
+            content: 'Click to Edit';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--primary);
+            color: white;
+            padding: 4px 12px;
+            font-size: 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        /* Modals */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(4px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 4000;
+        }
+
+        .modal {
+            background: var(--bg-card);
+            width: 100%;
+            max-width: 450px;
+            padding: 32px;
+            border-radius: var(--radius-lg);
+            position: relative;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .sidebar { display: none; }
+            .editor-container { grid-template-columns: 1fr; }
+            .editor-sidebar, .editor-right-panel { display: none; }
+            .hero h1 { font-size: 2.5rem; }
+            .prompt-box { flex-direction: column; }
+        }
+
+        /* API Documentation Styles */
+        .api-doc-container {
+            background: #0f172a;
+            color: #e2e8f0;
+            padding: 24px;
+            border-radius: 12px;
+            font-family: 'Courier New', Courier, monospace;
+            margin-top: 20px;
+        }
+
+        .api-method {
+            color: #10b981;
+            font-weight: bold;
+        }
+
+        .api-url {
+            color: #6366f1;
+        }
+
+        /* Toggle switch */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .switch input { opacity: 0; width: 0; height: 0; }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px; width: 16px;
+            left: 4px; bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider { background-color: var(--primary); }
+        input:checked + .slider:before { transform: translateX(26px); }
+
+        /* Loader */
+        .loader {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid var(--primary);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Visual Editor Overlay for Active Component */
+        .active-component-highlight {
+            outline: 3px solid var(--primary);
+            outline-offset: -3px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav id="main-nav">
+        <div class="container flex justify-between items-center" style="width: 100%;">
+            <a href="#" class="logo" onclick="showView('landing')">
+                <div class="logo-icon">S</div>
+                SiteForge AI
+            </a>
+            <div class="flex items-center gap-8">
+                <div class="hidden md-flex items-center gap-8" id="nav-links">
+                    <a href="#features" class="btn-ghost" style="text-decoration:none">Features</a>
+                    <a href="#pricing" class="btn-ghost" style="text-decoration:none">Pricing</a>
+                    <a href="#docs" class="btn-ghost" style="text-decoration:none">API</a>
+                </div>
+                <div id="auth-buttons">
+                    <button class="btn btn-ghost" onclick="openModal('login')">Login</button>
+                    <button class="btn btn-primary" onclick="openModal('signup')">Get Started</button>
+                </div>
+                <div id="user-menu" class="hidden">
+                    <button class="btn btn-outline" onclick="showView('dashboard')">Dashboard</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Landing View -->
+    <div id="view-landing" class="view active">
+        <section class="hero">
+            <div class="container">
+                <h1>The AI that builds your<br><span style="color:var(--primary)">entire business website.</span></h1>
+                <p>Describe your business in plain English. SiteForge generates a complete, responsive, and SEO-optimized website in seconds. Not just a template—a full production-ready site.</p>
+                
+                <div class="prompt-box">
+                    <input type="text" id="main-prompt" placeholder="e.g. A luxury interior design studio with a dark theme, portfolio gallery, and booking form...">
+                    <button class="btn btn-primary" onclick="generateFromLanding()">Generate Site</button>
+                </div>
+                
+                <div class="flex justify-center gap-8 mt-12" style="margin-top: 40px; opacity: 0.7;">
+                    <span class="flex items-center gap-2">✓ No coding required</span>
+                    <span class="flex items-center gap-2">✓ SEO Optimized</span>
+                    <span class="flex items-center gap-2">✓ Export to React/HTML</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="container" style="padding: 80px 24px;">
+            <div style="text-align:center; margin-bottom: 60px;">
+                <h2 style="font-size: 2.5rem; margin-bottom: 16px;">Everything you need to go live</h2>
+                <p style="color:var(--text-muted)">The most powerful AI-first website creation platform.</p>
+            </div>
+            <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px;">
+                <div class="project-card" style="padding: 32px;">
+                    <div style="font-size: 2rem; margin-bottom: 16px;">🎨</div>
+                    <h3>Visual Editor</h3>
+                    <p style="color:var(--text-muted); margin-top: 12px;">Point and click to edit any text, image, or style. Our AI assistant helps you refine as you go.</p>
+                </div>
+                <div class="project-card" style="padding: 32px;">
+                    <div style="font-size: 2rem; margin-bottom: 16px;">⚡</div>
+                    <h3>Instant Publishing</h3>
+                    <p style="color:var(--text-muted); margin-top: 12px;">Deploy your site to a global CDN with one click. Custom domains and SSL included.</p>
+                </div>
+                <div class="project-card" style="padding: 32px;">
+                    <div style="font-size: 2rem; margin-bottom: 16px;">🔌</div>
+                    <h3>Business API</h3>
+                    <p style="color:var(--text-muted); margin-top: 12px;">Integrate our generation engine into your own SaaS product with our robust API.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Dashboard View -->
+    <div id="view-dashboard" class="view">
+        <div class="dashboard-layout">
+            <aside class="sidebar">
+                <a href="#" class="sidebar-link active" onclick="switchDashboardTab('projects')">
+                    <span>📁</span> Projects
+                </a>
+                <a href="#" class="sidebar-link" onclick="switchDashboardTab('api')">
+                    <span>🔑</span> API Management
+                </a>
+                <a href="#" class="sidebar-link" onclick="switchDashboardTab('subscription')">
+                    <span>💳</span> Subscription
+                </a>
+                <a href="#" class="sidebar-link" onclick="switchDashboardTab('admin')" id="admin-link" style="display:none">
+                    <span>🛡️</span> Admin Panel
+                </a>
+                <div style="margin-top: auto; padding-top: 20px; border-top: 1px solid var(--border);">
+                    <a href="#" class="sidebar-link" onclick="logout()">
+                        <span>🚪</span> Logout
+                    </a>
+                </div>
+            </aside>
+
+            <main class="main-content">
+                <!-- Projects Tab -->
+                <div id="tab-projects">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h2 style="font-size: 1.8rem;">Your Projects</h2>
+                            <p style="color:var(--text-muted)">Manage and edit your generated websites.</p>
+                        </div>
+                        <button class="btn btn-primary" onclick="openModal('create-project')">+ Create New</button>
+                    </div>
+
+                    <div class="project-grid" id="project-list">
+                        <!-- Projects injected here -->
+                    </div>
+                </div>
+
+                <!-- API Tab -->
+                <div id="tab-api" class="hidden">
+                    <h2 style="font-size: 1.8rem;">API Dashboard</h2>
+                    <p style="color:var(--text-muted); margin-bottom: 32px;">Build your own AI builder using our infrastructure.</p>
+                    
+                    <div class="project-card" style="padding: 24px; margin-bottom: 32px;">
+                        <h4 style="margin-bottom: 16px;">Your API Key</h4>
+                        <div class="flex gap-4">
+                            <input type="password" value="sk_live_51Mxxxxxxxxxxxxxxxx" class="prop-input" readonly id="api-key-input" style="background: var(--bg-main); color: var(--text-main);">
+                            <button class="btn btn-outline" onclick="toggleApiKey()">Show</button>
+                            <button class="btn btn-outline" onclick="copyApiKey()">Copy</button>
+                        </div>
+                    </div>
+
+                    <h3>Documentation</h3>
+                    <div class="api-doc-container">
+                        <p><span class="api-method">POST</span> <span class="api-url">/v1/generate-site</span></p>
+                        <pre style="margin-top: 16px; color: #94a3b8;">
+{
+  "prompt": "Luxury salon website",
+  "theme": "dark",
+  "sections": ["hero", "services", "pricing"]
+}
+                        </pre>
+                    </div>
+                </div>
+
+                <!-- Subscription Tab -->
+                <div id="tab-subscription" class="hidden">
+                    <h2 style="font-size: 1.8rem;">Subscription & Credits</h2>
+                    <div class="grid" style="grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 32px;">
+                        <div class="project-card" style="padding: 24px; border-top: 4px solid var(--primary);">
+                            <h4>Starter</h4>
+                            <p style="font-size: 2rem; font-weight: 800; margin: 16px 0;">$0<span style="font-size: 1rem; color: var(--text-muted)">/mo</span></p>
+                            <ul style="list-style: none; color: var(--text-muted); line-height: 2;">
+                                <li>✓ 1 Active Project</li>
+                                <li>✓ Standard Templates</li>
+                                <li>✗ Custom Domains</li>
+                            </ul>
+                            <button class="btn btn-outline" style="width: 100%; margin-top: 24px;" disabled>Current Plan</button>
+                        </div>
+                        <div class="project-card" style="padding: 24px; border-top: 4px solid var(--primary);">
+                            <h4>Pro</h4>
+                            <p style="font-size: 2rem; font-weight: 800; margin: 16px 0;">$29<span style="font-size: 1rem; color: var(--text-muted)">/mo</span></p>
+                            <ul style="list-style: none; color: var(--text-muted); line-height: 2;">
+                                <li>✓ Unlimited Projects</li>
+                                <li>✓ AI Assistant Pro</li>
+                                <li>✓ Custom Domains</li>
+                            </ul>
+                            <button class="btn btn-primary" style="width: 100%; margin-top: 24px;" onclick="subscribe('pro')">Upgrade to Pro</button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Visual Editor View -->
+    <div id="view-editor" class="hidden">
+        <div class="editor-container">
+            <aside class="editor-sidebar">
+                <div style="padding: 20px; border-bottom: 1px solid #374151;" class="flex justify-between items-center">
+                    <span style="font-weight: 700;">Layers</span>
+                    <button class="btn btn-ghost" style="padding: 4px;" onclick="showView('dashboard')">✕</button>
+                </div>
+                <div id="layer-list" style="padding: 10px; overflow-y: auto;">
+                    <!-- Layers injected here -->
+                </div>
+            </aside>
+
+            <main class="editor-canvas-wrapper">
+                <div class="canvas-toolbar">
+                    <button class="btn btn-ghost" onclick="setCanvasSize('desktop')">🖥️</button>
+                    <button class="btn btn-ghost" onclick="setCanvasSize('tablet')">📱</button>
+                    <button class="btn btn-ghost" onclick="setCanvasSize('mobile')">📱</button>
+                    <div style="width: 1px; background: #374151; margin: 0 8px;"></div>
+                    <button class="btn btn-primary" style="padding: 6px 16px;" onclick="publishSite()">Publish</button>
+                </div>
+                <div id="canvas-frame" class="canvas-frame">
+                    <div id="rendered-site-content">
+                        <!-- Website content renders here -->
+                    </div>
+                </div>
+            </main>
+
+            <aside class="editor-right-panel" id="editor-properties">
+                <div style="text-align: center; margin-top: 100px; color: #9ca3af;">
+                    <p>Select an element to edit properties</p>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div id="modal-auth" class="modal-overlay">
+        <div class="modal">
+            <h2 id="modal-title" style="margin-bottom: 8px;">Welcome Back</h2>
+            <p id="modal-subtitle" style="color: var(--text-muted); margin-bottom: 24px;">Please enter your details.</p>
+            <form id="auth-form" onsubmit="handleAuth(event)">
+                <div class="prop-group">
+                    <label class="prop-label" style="color: var(--text-main)">Email Address</label>
+                    <input type="email" class="prop-input" style="background: white; color: black; border: 1px solid var(--border);" required>
+                </div>
+                <div class="prop-group">
+                    <label class="prop-label" style="color: var(--text-main)">Password</label>
+                    <input type="password" class="prop-input" style="background: white; color: black; border: 1px solid var(--border);" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;" id="auth-submit-btn">Login</button>
+            </form>
+            <button class="btn btn-ghost" style="width: 100%; margin-top: 12px;" onclick="closeModal()">Cancel</button>
+        </div>
+    </div>
+
+    <!-- AI Assistant -->
+    <div class="ai-assistant-bubble" onclick="toggleAIChat()">
+        <span>✨</span>
+    </div>
+    <div class="ai-chat-window" id="ai-chat">
+        <div class="chat-header">
+            <span>SiteForge AI Assistant</span>
+            <button onclick="toggleAIChat()" style="background:none; border:none; color:white; cursor:pointer;">✕</button>
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <div class="message ai">Hello! I'm your AI design assistant. How can I help you improve your website today?</div>
+        </div>
+        <div style="padding: 16px; border-top: 1px solid var(--border);" class="flex gap-2">
+            <input type="text" id="chat-input" placeholder="Type a command..." class="prop-input" style="background: var(--bg-main); color: var(--text-main);">
+            <button class="btn btn-primary" style="padding: 8px;" onclick="sendChatMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        /**
+         * APPLICATION STATE
+         */
+        const state = {
+            user: null,
+            view: 'landing',
+            projects: [
+                {
+                    id: 'proj_1',
+                    name: 'Luxury Salon',
+                    updated: '2 hours ago',
+                    data: {
+                        theme: { primary: '#d4af37', bg: '#000000', text: '#ffffff', font: 'Plus Jakarta Sans' },
+                        sections: [
+                            { id: 'sec_1', type: 'navbar', content: { logo: 'ELITE SALON' } },
+                            { id: 'sec_2', type: 'hero', content: { title: 'Excellence in Beauty', subtitle: 'Experience the ultimate luxury grooming experience in the heart of the city.', cta: 'Book Appointment' }, styles: { bg: '#000000', color: '#ffffff' } },
+                            { id: 'sec_3', type: 'services', content: { title: 'Our Services', items: [{n:'Hair Styling', d:'Master cuts and styling'}, {n:'Facial Care', d:'Revitalizing treatments'}, {n:'Nail Art', d:'Precision manicures'}] } }
+                        ]
+                    }
+                }
+            ],
+            currentProject: null,
+            activeSectionId: null,
+            isDarkMode: false
+        };
+
+        /**
+         * CORE ENGINE: RENDERER
+         */
+        function renderProjectToCanvas(projectData) {
+            const container = document.getElementById('rendered-site-content');
+            container.innerHTML = '';
+            
+            projectData.sections.forEach(section => {
+                const sectionEl = document.createElement('div');
+                sectionEl.className = 'rendered-section';
+                sectionEl.id = `render-${section.id}`;
+                if (state.activeSectionId === section.id) sectionEl.classList.add('active-component-highlight');
+                
+                sectionEl.onclick = (e) => {
+                    e.stopPropagation();
+                    selectSection(section.id);
+                };
+
+                // Simple template factory
+                let html = '';
+                const theme = projectData.theme;
+
+                switch(section.type) {
+                    case 'navbar':
+                        html = `
+                            <nav style="background:${theme.bg}; color:${theme.text}; position:relative; height:70px; border-bottom:1px solid rgba(255,255,255,0.1); display:flex; align-items:center; padding:0 40px;">
+                                <div style="font-weight:800; font-size:1.2rem; color:${theme.primary}">${section.content.logo}</div>
+                                <div style="margin-left:auto; display:flex; gap:20px; font-size:0.9rem;">
+                                    <span>Services</span><span>About</span><span>Contact</span>
+                                </div>
+                            </nav>
+                        `;
+                        break;
+                    case 'hero':
+                        html = `
+                            <section style="background:${section.styles.bg}; color:${section.styles.color}; padding:100px 40px; text-align:center;">
+                                <h1 style="font-size:3.5rem; margin-bottom:20px; font-family:${theme.font}">${section.content.title}</h1>
+                                <p style="font-size:1.2rem; max-width:600px; margin:0 auto 30px; opacity:0.8;">${section.content.subtitle}</p>
+                                <button style="background:${theme.primary}; color:white; border:none; padding:15px 35px; border-radius:30px; font-weight:700; cursor:pointer;">${section.content.cta}</button>
+                            </section>
+                        `;
+                        break;
+                    case 'services':
+                        html = `
+                            <section style="background:${theme.bg}; color:${theme.text}; padding:80px 40px;">
+                                <h2 style="text-align:center; font-size:2.5rem; margin-bottom:50px;">${section.content.title}</h2>
+                                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:30px;">
+                                    ${section.content.items.map(item => `
+                                        <div style="background:rgba(255,255,255,0.05); padding:30px; border-radius:12px; border:1px solid rgba(255,255,255,0.1);">
+                                            <h3 style="color:${theme.primary}; margin-bottom:10px;">${item.n}</h3>
+                                            <p style="opacity:0.7;">${item.d}</p>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </section>
+                        `;
+                        break;
+                }
+                
+                sectionEl.innerHTML = html;
+                container.appendChild(sectionEl);
+            });
+        }
+
+        /**
+         * VIEW MANAGEMENT
+         */
+        function showView(viewName) {
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            document.getElementById(`view-${viewName}`).classList.add('active');
+            state.view = viewName;
+            
+            // Handle nav visibility
+            if (viewName === 'editor') {
+                document.getElementById('main-nav').style.display = 'none';
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.getElementById('main-nav').style.display = 'flex';
+                document.body.style.overflow = 'auto';
+            }
+
+            if (viewName === 'dashboard') {
+                renderProjectList();
+            }
+        }
+
+        function switchDashboardTab(tabName) {
+            document.querySelectorAll('[id^="tab-"]').forEach(t => t.classList.add('hidden'));
+            document.getElementById(`tab-${tabName}`).classList.remove('hidden');
+            
+            document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+        }
+
+        /**
+         * PROJECT MANAGEMENT
+         */
+        function renderProjectList() {
+            const list = document.getElementById('project-list');
+            list.innerHTML = state.projects.map(p => `
+                <div class="project-card">
+                    <div class="project-thumb">
+                        <span>Preview of ${p.name}</span>
+                    </div>
+                    <div class="project-info">
+                        <h4 style="margin-bottom:4px;">${p.name}</h4>
+                        <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:16px;">Last updated ${p.updated}</p>
+                        <div class="flex gap-2">
+                            <button class="btn btn-primary" style="padding: 8px 16px; font-size: 0.8rem;" onclick="openEditor('${p.id}')">Edit Site</button>
+                            <button class="btn btn-outline" style="padding: 8px 16px; font-size: 0.8rem;" onclick="previewSite('${p.id}')">View</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openEditor(projectId) {
+            const project = state.projects.find(p => p.id === projectId);
+            state.currentProject = JSON.parse(JSON.stringify(project)); // Deep clone
+            showView('editor');
+            renderProjectToCanvas(state.currentProject.data);
+            renderLayerList();
+        }
+
+        /**
+         * EDITOR LOGIC
+         */
+        function selectSection(sectionId) {
+            state.activeSectionId = sectionId;
+            renderProjectToCanvas(state.currentProject.data);
+            renderLayerList();
+            renderProperties(sectionId);
+        }
+
+        function renderLayerList() {
+            const list = document.getElementById('layer-list');
+            list.innerHTML = state.currentProject.data.sections.map(s => `
+                <div class="sidebar-link ${state.activeSectionId === s.id ? 'active' : ''}" 
+                     style="font-size:0.85rem; cursor:pointer;" 
+                     onclick="selectSection('${s.id}')">
+                    <span>${s.type === 'navbar' ? '🧭' : s.type === 'hero' ? '🖼️' : '🛠️'}</span>
+                    ${s.type.toUpperCase()}
+                </div>
+            `).join('');
+        }
+
+        function renderProperties(sectionId) {
+            const section = state.currentProject.data.sections.find(s => s.id === sectionId);
+            const panel = document.getElementById('editor-properties');
+            
+            let html = `<h3 style="margin-bottom:20px;">Edit ${section.type}</h3>`;
+            
+            for (let key in section.content) {
+                if (typeof section.content[key] === 'string') {
+                    html += `
+                        <div class="prop-group">
+                            <label class="prop-label">${key}</label>
+                            <input type="text" class="prop-input" value="${section.content[key]}" 
+                                   oninput="updateContent('${sectionId}', '${key}', this.value)">
+                        </div>
+                    `;
+                }
+            }
+
+            if (section.styles) {
+                html += `<h4 style="margin:20px 0 10px; font-size:0.8rem; color:#9ca3af;">STYLES</h4>`;
+                for (let key in section.styles) {
+                    html += `
+                        <div class="prop-group">
+                            <label class="prop-label">${key}</label>
+                            <input type="color" class="prop-input" value="${section.styles[key]}" 
+                                   oninput="updateStyle('${sectionId}', '${key}', this.value)" style="height:40px; padding:2px;">
+                        </div>
+                    `;
+                }
+            }
+
+            panel.innerHTML = html;
+        }
+
+        function updateContent(sectionId, key, value) {
+            const section = state.currentProject.data.sections.find(s => s.id === sectionId);
+            section.content[key] = value;
+            renderProjectToCanvas(state.currentProject.data);
+        }
+
+        function updateStyle(sectionId, key, value) {
+            const section = state.currentProject.data.sections.find(s => s.id === sectionId);
+            section.styles[key] = value;
+            renderProjectToCanvas(state.currentProject.data);
+        }
+
+        function setCanvasSize(size) {
+            const frame = document.getElementById('canvas-frame');
+            frame.className = 'canvas-frame ' + size;
+        }
+
+        /**
+         * AI GENERATION MOCK
+         */
+        async function generateFromLanding() {
+            const prompt = document.getElementById('main-prompt').value;
+            if (!prompt) return alert('Please enter a description');
+
+            // Simulate API Call
+            const btn = event.currentTarget;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<div class="loader"></div> Generating...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                const newId = 'proj_' + Date.now();
+                const newProject = {
+                    id: newId,
+                    name: prompt.substring(0, 20) + '...',
+                    updated: 'Just now',
+                    data: {
+                        theme: { primary: '#6366f1', bg: '#ffffff', text: '#0f172a', font: 'Inter' },
+                        sections: [
+                            { id: 'n1', type: 'navbar', content: { logo: 'MY BRAND' } },
+                            { id: 'h1', type: 'hero', content: { title: 'AI Generated Excellence', subtitle: 'This website was built entirely from your prompt: ' + prompt, cta: 'Explore Now' }, styles: { bg: '#f8fafc', color: '#0f172a' } },
+                            { id: 's1', type: 'services', content: { title: 'Our Offerings', items: [{n:'Quality', d:'Top tier results'}, {n:'Speed', d:'Instant delivery'}] } }
+                        ]
+                    }
+                };
+                
+                state.projects.unshift(newProject);
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                
+                if (!state.user) {
+                    openModal('signup');
+                } else {
+                    showView('dashboard');
+                }
+            }, 2000);
+        }
+
+        /**
+         * AUTH & MODALS
+         */
+        function openModal(type) {
+            const modal = document.getElementById('modal-auth');
+            const title = document.getElementById('modal-title');
+            const submitBtn = document.getElementById('auth-submit-btn');
+            
+            if (type === 'login') {
+                title.innerText = 'Welcome Back';
+                submitBtn.innerText = 'Login';
+            } else {
+                title.innerText = 'Create Account';
+                submitBtn.innerText = 'Sign Up';
+            }
+            
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('modal-auth').style.display = 'none';
+        }
+
+        function handleAuth(e) {
+            e.preventDefault();
+            // Mock auth
+            state.user = { name: 'John Doe', email: 'john@example.com', role: 'user' };
+            document.getElementById('auth-buttons').classList.add('hidden');
+            document.getElementById('user-menu').classList.remove('hidden');
+            closeModal();
+            showView('dashboard');
+        }
+
+        function logout() {
+            state.user = null;
+            document.getElementById('auth-buttons').classList.remove('hidden');
+            document.getElementById('user-menu').classList.add('hidden');
+            showView('landing');
+        }
+
+        /**
+         * AI CHAT ASSISTANT
+         */
+        function toggleAIChat() {
+            document.getElementById('ai-chat').classList.toggle('open');
+        }
+
+        function sendChatMessage() {
+            const input = document.getElementById('chat-input');
+            const msg = input.value;
+            if (!msg) return;
+
+            const container = document.getElementById('chat-messages');
+            
+            // User message
+            const userDiv = document.createElement('div');
+            userDiv.className = 'message user';
+            userDiv.innerText = msg;
+            container.appendChild(userDiv);
+            
+            input.value = '';
+            container.scrollTop = container.scrollHeight;
+
+            // AI Response Mock
+            setTimeout(() => {
+                const aiDiv = document.createElement('div');
+                aiDiv.className = 'message ai';
+                
+                if (msg.toLowerCase().includes('color')) {
+                    aiDiv.innerText = "I've updated the primary color to match your request. How does it look?";
+                    if (state.currentProject) {
+                        state.currentProject.data.theme.primary = '#10b981';
+                        renderProjectToCanvas(state.currentProject.data);
+                    }
+                } else {
+                    aiDiv.innerText = "I can help with that. Would you like me to rewrite the copy or change the layout?";
+                }
+                
+                container.appendChild(aiDiv);
+                container.scrollTop = container.scrollHeight;
+            }, 1000);
+        }
+
+        /**
+         * MISC
+         */
+        function toggleApiKey() {
+            const input = document.getElementById('api-key-input');
+            input.type = input.type === 'password' ? 'text' : 'password';
+        }
+
+        function copyApiKey() {
+            const input = document.getElementById('api-key-input');
+            navigator.clipboard.writeText(input.value);
+            alert('API Key copied to clipboard');
+        }
+
+        function publishSite() {
+            alert('Site published successfully to: https://siteforge-ai-' + Math.floor(Math.random()*1000) + '.web.app');
+        }
+
+        function subscribe(plan) {
+            alert('Redirecting to secure checkout for ' + plan + ' plan...');
+        }
+
+        // Initialize
+        window.onload = () => {
+            // Initial render
+            renderProjectList();
+            
+            // Add scroll effect to nav
+            window.addEventListener('scroll', () => {
+                const nav = document.querySelector('nav');
+                if (window.scrollY > 50) {
+                    nav.style.padding = '10px 0';
+                    nav.style.boxShadow = '0 4px 6px -1px rgba(0,0,0,0.1)';
+                } else {
+                    nav.style.padding = '0';
+                    nav.style.boxShadow = 'none';
+                }
+            });
+        };
+
+    </script>
+</body>
+</html></html>
